@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
+  <title>Payment Successful</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, Verdana, sans-serif;
+      background-color: #25402d;
+      color: white;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .header {
+      background-color: #2f7d32;
+      padding: 30px 20px 20px 20px;
+    }
+
+    .checkmark-container {
+      position: relative;
+      width: 65px;
+      height: 65px;
+      margin: 0 auto 10px auto;
+    }
+
+    .checkmark {
+      background: white;
+      border-radius: 50%;
+      width: 65px;
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .checkmark-container::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.768);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      animation: pulse 1.5s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .animated-tick path {
+      stroke-width: 10;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: drawTickOnce 1.2s ease-in-out forwards;
+    }
+
+    @keyframes drawTickOnce {
+      0% {
+        stroke-dashoffset: 100;
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      60% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+    }
+
+    .success {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .date-time {
+      font-size: 18px;
+      color: #f3ffb8;
+      margin-top: 2px;
+    }
+
+    .card-section {
+      background: linear-gradient(to bottom, #2f7d32 65%, #25402d 35%);
+      width: 100%;
+    }
+
+    .card-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
+    .card {
+      background: #21182bfa;
+      border-radius: 10px;
+      padding: 12px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .avatar {
+      background: #27b5f5;
+      color: white;
+      font-size: 20px;
+      border-radius: 35%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .details {
+      text-align: left;
+    }
+
+    .amount-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0 10px 0;
+    }
+
+    .amount {
+      font-size: 24px;
+      font-weight: bold;
+      padding-left: 60px;
+    }
+
+    .split-link {
+      font-size: 14px;
+      font-weight: bold;
+      color: #a364e9;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      gap: 30px;
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .icon-circle {
+      background-color: #a264e98b;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-circle i {
+      color: white;
+      font-size: 24px;
+    }
+
+    .button-text {
+      color: white;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .ads-container {
+      margin: 30px auto 10px auto;
+      background: transparent;
+      color: black;
+      padding: 0;
+      border-radius: 15px;
+      overflow: hidden;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 15px;
+    }
+
+    .indicators {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background-color: #555;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: white;
+      width: 26px;
+      border-radius: 999px;
+      transform: scale(1.2);
+    }
+
+    .upi-logo-container {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .upi-logo {
+      height: 30px;
+      width: auto;
+      display: inline-block;
+    }
+
+    .done-button {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #21182be8;
+      color: #a364e9;
+      text-align: center;
+      padding: 15px 0;
+      font-weight: bold;
+      font-size: 18px;
+      width: 100%;
+      z-index: 1000;
+      border-radius: 0;
+    }
+
+    @media (min-width: 768px) {
+      .done-button {
+        width: 100%;
+        max-width: 768px;
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 12px 12px 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div
+    id="input-form"
+    style="padding: 20px; background: #1c1c1c; text-align: center"
+  >
+    <h2 style="color: white">Enter Payment Details</h2>
+    <input type="text" id="name" placeholder="SUN WING" /><br /><br />
+    <input type="text" id="avatar" placeholder="SW" /><br /><br />
+    <input type="text" id="id" placeholder="UPIid@abcbank" /><br /><br />
+    <input type="text" id="amount" placeholder="₹20" /><br /><br />
+    <button onclick="submitDetails()" style="padding: 10px 20px">PAY</button>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="checkmark-container">
+        <div class="checkmark">
+          <svg
+            class="animated-tick"
+            width="50"
+            height="50"
+            viewBox="0 0 100 100"
+          >
+            <defs>
+              <linearGradient id="shine-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#2f7d32" />
+                <stop offset="30%" stop-color="#a8ff60" />
+                <stop offset="50%" stop-color="#2f7d32" />
+                <stop offset="100%" stop-color="#2f7d32" />
+                <animateTransform attributeName="gradientTransform"
+                  type="translate"
+                  from="-1,0"
+                  to="1,0"
+                  dur="2s"
+                  repeatCount="indefinite" />
+              </linearGradient>
+            </defs>
+            <path d="M20 50 L40 70 L80 30" stroke="url(#shine-gradient)" />
+          </svg>
+        </div>
+      </div><br>
+      <h2 class="success">Payment Successful</h2>
+      <p class="date-time" id="display-date"></p>
+    </div>
+
+    <div class="card-section">
+      <div class="card-wrapper">
+        <div class="card">
+          <div class="user-info">
+            <div class="avatar" id="display-avatar">SW</div>
+            <div class="details">
+              <div style="font-size: 20px">
+                <strong id="display-name">SUN WING</strong>
+              </div>
+              <div style="font-size: 15px; color: #ccc" id="display-id">
+                UPIid@abcbank
+              </div>
+            </div>
+          </div>
+          <div class="amount-container">
+            <div class="amount">₹<span id="display-amount">20</span></div>
+            <div class="split-link">Split Expense</div>
+          </div>
+          <div class="buttons">
+            <div class="button">
+              <span class="icon-circle"><i class="bi bi-file-text" style="color: #E0B0FF;"></i></span>
+              <span class="button-text">View Details</span>
+            </div>
+            <div class="button">
+              <span class="icon-circle"><i class="bi bi-share" style="color: #E0B0FF;"></i></span>
+              <span class="button-text">Share Receipt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ads-container">
+      <div class="slider" id="slider">
+        <div class="slide"><img src="/assets/poster1.png" alt="Ad 1" /></div>
+        <div class="slide"><img src="/assets/poster2.jpeg" alt="Ad 2" /></div>
+        <div class="slide"><img src="/assets/poster3.jpg" alt="Ad 3" /></div>
+        <div class="slide"><img src="/assets/poster4.jpeg" alt="Ad 4" /></div>
+        <div class="slide"><img src="/assets/poster5.jpeg" alt="Ad 5" /></div>
+        <div class="slide"><img src="/assets/poster6.jpeg" alt="Ad 6" /></div>
+        <div class="slide"><img src="/assets/poster7.png" alt="Ad 7" /></div>
+        <div class="slide"><img src="/assets/poster8.jpeg" alt="Ad 8" /></div>
+      </div>
+      <div class="indicators" id="indicators"></div>
+    </div>
+
+    <div class="upi-logo-container">
+      <img src="/assets/UPIlogo.png" alt="UPI Logo" class="upi-logo" />
+    </div>
+
+    <div class="done-button">DONE</div>
+  </div>
+  <script>
+    function formatCurrentDateTime() {
+      const now = new Date();
+  
+      const day = now.getDate().toString().padStart(2, "0");
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      const month = monthNames[now.getMonth()];
+      const year = now.getFullYear();
+  
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      const ampm = hours >= 12 ? "PM" : "AM";
+  
+      hours = hours % 12 || 12;
+      const paddedHours = hours.toString().padStart(2, "0");
+  
+      return `${day} ${month} ${year} at ${paddedHours}:${minutes} ${ampm}`;
+    }
+  
+    function submitDetails() {
+      const datetime = formatCurrentDateTime();
+  
+      const name = document.getElementById("name").value;
+      const avatar = document.getElementById("avatar").value;
+      const id = document.getElementById("id").value;
+      const amount = document.getElementById("amount").value;
+  
+      document.getElementById("display-date").innerText = datetime;
+      document.getElementById("display-avatar").innerText = avatar;
+      document.getElementById("display-name").innerText = name;
+      document.getElementById("display-id").innerText = id;
+      document.getElementById("display-amount").innerText = amount;
+  
+      document.getElementById("input-form").style.display = "none";
+  
+      window.scrollTo({
+        top: document.querySelector(".header").offsetTop,
+        behavior: "smooth",
+      });
+    }
+  
+    // Slider logic
+    const slider = document.getElementById("slider");
+    const indicators = document.getElementById("indicators");
+    const totalSlides = slider.children.length;
+  
+    let currentIndex = 0;
+    let intervalId;
+  
+    // Create indicator dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      dot.onclick = () => goToSlide(i);
+      indicators.appendChild(dot);
+    }
+  
+    const dots = document.querySelectorAll(".dot");
+    dots[0].classList.add("active");
+  
+    function goToSlide(index) {
+      currentIndex = index;
+      updateSlider();
+      resetInterval();
+    }
+  
+    function updateSlider() {
+      slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach((dot) => dot.classList.remove("active"));
+      dots[currentIndex].classList.add("active");
+    }
+  
+    function showNextSlide() {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateSlider();
+    }
+  
+    function resetInterval() {
+      clearInterval(intervalId);
+      intervalId = setInterval(showNextSlide, 3000);
+    }
+  
+    intervalId = setInterval(showNextSlide, 3000);
+  </script>
+  </body>
+  </html>
+  
